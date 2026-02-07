@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Bac Maroc 2026</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    background: radial-gradient(circle at top, #5a0f0f, #120000);
+    font-family: Arial, sans-serif;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.container{
+    text-align:center;
+    background:rgba(0,0,0,0.45);
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 0 50px rgba(0,0,0,0.8);
+    max-width:420px;
+}
+
+h1{
+    font-size:26px;
+    margin-bottom:5px;
+}
+
+.sub{
+    opacity:0.8;
+    margin-bottom:25px;
+}
+
+.rabbit{
+    width:130px;
+    margin-bottom:20px;
+}
+
+.timer{
+    font-size:38px;
+    font-weight:bold;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+
+.labels{
+    display:flex;
+    justify-content:space-between;
+    font-size:13px;
+    opacity:0.7;
+}
+
+.quote{
+    margin:25px 0;
+    font-size:20px;
+    min-height:60px;
+}
+
+button{
+    background:#7b1fa2;
+    border:none;
+    padding:12px 25px;
+    color:white;
+    font-size:16px;
+    border-radius:30px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#9c27b0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>⏳ Bac Maroc 2026</h1>
+    <div class="sub">العدّ التنازلي للباك</div>
+
+    <!-- صورة الأرنب -->
+    <img class="rabbit" src="https://i.imgur.com/0Z8FQ8J.png" alt="rabbit clock">
+
+    <div class="timer" id="countdown">00d 00h 00m 00s</div>
+
+    <div class="labels">
+        <span>Days</span>
+        <span>Hours</span>
+        <span>Mins</span>
+        <span>Secs</span>
+    </div>
+
+    <div class="quote" id="motivation"></div>
+
+    <button onclick="startSound()">📵 سد الهاتف وقرا</button>
+</div>
+
+<!-- صوت الساعة -->
+<audio id="tick" src="https://www.soundjay.com/clock/sounds/clock-ticking-1.mp3" loop></audio>
+
+<script>
+// 📅 تاريخ امتحان الباك
+const bacDate = new Date("June 4, 2026 08:00:00").getTime();
+const tickSound = document.getElementById("tick");
+
+// 🔊 تشغيل الصوت
+function startSound(){
+    tickSound.play();
+}
+
+// ⏳ العدّ التنازلي
+setInterval(() => {
+    const now = new Date().getTime();
+    const diff = bacDate - now;
+
+    if (diff <= 0) {
+        document.getElementById("countdown").innerHTML = "بالتوفيق 💪";
+        tickSound.pause();
+        return;
+    }
+
+    const days = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor((diff / (1000*60*60)) % 24);
+    const mins = Math.floor((diff / (1000*60)) % 60);
+    const secs = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("countdown").innerHTML =
+        `${days}d ${hours}h ${mins}m ${secs}s`;
+}, 1000);
+
+// 🧠 الجمل التحفيزية
+const motivations = [
+    "سد الهاتف وقرا، المستقبل كيتبنا دابا 💪",
+    "راك قريب، ما تضيعش تعبك 🔥",
+    "الكسل دوز، وخلي المجد ليك 👑",
+    "قرا دابا وارتاح من بعد 📚",
+    "إلى ما قريتيش اليوم، غادي تندم غدا 😤",
+    "راك قدها، غير شد الطريق 🚀",
+    "باك 2026 ماشي حلم، راه هدف 🎯",
+    "دقيقة قرا دابا خير من ساعة ندم ⏳"
+];
+
+const motivationDiv = document.getElementById("motivation");
+
+function changeMotivation(){
+    const i = Math.floor(Math.random() * motivations.length);
+    motivationDiv.innerText = `"${motivations[i]}"`;
+}
+
+// أول جملة
+changeMotivation();
+
+// تبديل كل 10 ثواني
+setInterval(changeMotivation, 10000);
+</script>
+
+</body>
+</html>
